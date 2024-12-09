@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legg til spill</title>
+    <link rel="stylesheet" href="/static/styles/style.css">
+</head>
+<body>
+    <h1>Legg til nytt spill</h1>
+    <form id="add-game-form">
+        <label for="name">Navn:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="genre">Sjanger:</label>
+        <input type="text" id="genre" name="genre" required><br><br>
+
+        <label for="release_date">Utgivelsesdato:</label>
+        <input type="date" id="release_date" name="release_date"><br><br>
+
+        <button type="submit">Legg til</button>
+    </form>
+    <a href="/">Tilbake til hjem</a>
+    <script src="/static/scripts/add_game.js"></script>
+</body>
+</html>
