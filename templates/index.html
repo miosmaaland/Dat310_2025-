@@ -1,15 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virtuelt Spillbibliotek</title>
-    <link rel="stylesheet" href="static/styles/style.css">
+    <title>Spoiler Alert: The Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Velkommen til ditt spillbibliotek</h1>
-    <p>Her kan du administrere spillene dine!</p>
-    <a href="/games/view">Vis spill</a>
-    <a href="/games/add">Legg til spill</a>
+    <div class="navbar">
+        <a href="{{ url_for('index') }}">Home</a>
+        {% if 'user_id' in session %}
+            <a href="{{ url_for('play') }}">Play</a>
+            <a href="{{ url_for('profile') }}">Profile</a>
+            <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('signup') }}">Sign Up</a>
+            <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
+        {% endif %}
+    </div>
+
+    <div class="home-content">
+        <h1>Welcome to Spoiler Alert: The Game! 🎬</h1>
+        <p>Test your TV show knowledge and compete for the top spot on the leaderboard!</p>
+        
+        {% if 'user_id' in session %}
+            <a href="{{ url_for('play') }}" class="cta-button">Start Playing ▶️</a>
+        {% else %}
+            <a href="{{ url_for('signup') }}" class="cta-button">Sign Up to Play ✨</a>
+            <a href="{{ url_for('login') }}" class="cta-button">Login 🔑</a>
+        {% endif %}
+
+        <h2>How It Works</h2>
+        <div class="how-it-works">
+            <p>1. Answer trivia questions about popular TV shows.</p>
+            <p>2. Earn points for correct answers.</p>
+            <p>3. Climb the leaderboard and unlock achievements!</p>
+        </div>
+    </div>
 </body>
 </html>

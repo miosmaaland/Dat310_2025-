@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Play Trivia - Spoiler Alert: The Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('profile') }}">Profile</a>
+        <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <div class="game-container">
+        <div class="game-header">
+            <h1>Trivia Time! 🎮</h1>
+            <div id="score" class="score-display">Score: 0</div>
+        </div>
+        
+        <div id="question" class="question-text"></div>
+        <div id="series-info" class="series-info"></div>
+        
+        
+        <div id="answers" class="answers-container"></div>
+        
+        <div class="game-controls">
+            <button id="skip-btn" class="control-btn">⏩ Skip Question (-5)</button>
+        </div>
+        
+        <p id="feedback" class="feedback"></p>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
