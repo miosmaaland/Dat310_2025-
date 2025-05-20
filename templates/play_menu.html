@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Quiz Options - CS Quiz Master</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('profile') }}">Profile</a>
+        <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <div class="selection-container">
+        <h1>🎯 Choose Your Challenge</h1>
+        <form method="post" action="{{ url_for('start_game') }}">
+            <label for="category">Choose Category (optional):</label>
+            <select name="category_id" id="category">
+                <option value="">Any</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="level">Choose Level (optional):</label>
+            <select name="level" id="level">
+                <option value="">Any</option>
+                <option value="1">Level 1</option>
+                <option value="2">Level 2</option>
+                <option value="3">Level 3</option>
+            </select>
+
+            <button type="submit">Start Quiz</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Spoiler Alert: The Game</title>
+    <title>CS Quiz Master</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -20,11 +20,11 @@
     </div>
 
     <div class="home-content">
-        <h1>Welcome to Spoiler Alert: The Game! 🎬</h1>
-        <p>Test your TV show knowledge and compete for the top spot on the leaderboard!</p>
+        <h1>Welcome to CS Quiz Master! 💻</h1>
+        <p>Sharpen your computer science knowledge and rise to the top of the leaderboard!</p>
         
         {% if 'user_id' in session %}
-            <a href="{{ url_for('play') }}" class="cta-button">Start Playing ▶️</a>
+            <a href="{{ url_for('play') }}" class="cta-button">Start Quiz ▶️</a>
         {% else %}
             <a href="{{ url_for('signup') }}" class="cta-button">Sign Up to Play ✨</a>
             <a href="{{ url_for('login') }}" class="cta-button">Login 🔑</a>
@@ -32,9 +32,9 @@
 
         <h2>How It Works</h2>
         <div class="how-it-works">
-            <p>1. Answer trivia questions about popular TV shows.</p>
-            <p>2. Earn points for correct answers.</p>
-            <p>3. Climb the leaderboard and unlock achievements!</p>
+            <p>1. Answer trivia questions related to computer science concepts.</p>
+            <p>2. Earn points for every correct answer.</p>
+            <p>3. Compete with others and climb the leaderboard!</p>
         </div>
     </div>
 </body>

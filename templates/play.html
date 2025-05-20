@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Play Trivia - Spoiler Alert: The Game</title>
+    <title>Play Quiz - CS Quiz Master</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -14,20 +14,21 @@
 
     <div class="game-container">
         <div class="game-header">
-            <h1>Trivia Time! 🎮</h1>
+            <h1>💻 Computer Science Challenge</h1>
             <div id="score" class="score-display">Score: 0</div>
         </div>
-        
-        <div id="question" class="question-text"></div>
+
+        <div id="question" class="question-text">Loading question...</div>
         <div id="series-info" class="series-info"></div>
-        
-        
-        <div id="answers" class="answers-container"></div>
-        
+
+        <div id="answers" class="answers-container">
+            <!-- Answer buttons will be dynamically inserted here -->
+        </div>
+
         <div class="game-controls">
             <button id="skip-btn" class="control-btn">⏩ Skip Question (-5)</button>
         </div>
-        
+
         <p id="feedback" class="feedback"></p>
     </div>
 

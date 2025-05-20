@@ -1,33 +1,48 @@
 let currentQuestion = null;
 let score = 0;
 
+function getQueryParams() {
+    const params = {};
+    window.location.search
+        .substring(1)
+        .split("&")
+        .forEach(pair => {
+            const [key, value] = pair.split("=");
+            if (key && value) params[key] = decodeURIComponent(value);
+        });
+    return params;
+}
+
+
 async function loadQuestion() {
     try {
-        const response = await fetch('/get_question');
+        const params = getQueryParams();
+        const queryString = new URLSearchParams(params).toString();
+        const response = await fetch(`/get_question?${queryString}`);
         currentQuestion = await response.json();
-        
+
         // Display question
         document.getElementById('question').textContent = currentQuestion.question;
-        document.getElementById('series-info').textContent = `From: ${currentQuestion.series_name} (${currentQuestion.episode})`;
+        document.getElementById('series-info').textContent = `Category: ${currentQuestion.category_name} - Level ${currentQuestion.level}`;
         document.getElementById('feedback').textContent = '';
 
         // Clear previous answers
         const answersContainer = document.getElementById('answers');
         answersContainer.innerHTML = '';
 
-        // Create answer options
+        // Combine and shuffle correct + wrong answers
         const answers = [
             currentQuestion.correct_answer,
-            ...JSON.parse(currentQuestion.wrong_answers) // Parse JSON string
+            ...currentQuestion.wrong_answers
         ];
         answers.sort(() => Math.random() - 0.5); // Shuffle
 
-        // Add buttons to the DOM
+        // Create answer buttons
         answers.forEach(answer => {
             const button = document.createElement('button');
             button.className = 'answer-btn';
             button.textContent = answer;
-            button.onclick = () => checkAnswer(answer); // Attach click handler
+            button.onclick = () => checkAnswer(answer);
             answersContainer.appendChild(button);
         });
 
@@ -50,18 +65,17 @@ async function checkAnswer(selectedAnswer) {
         const result = await response.json();
         const feedbackEl = document.getElementById('feedback');
 
-        // Highlight answers
         document.querySelectorAll('.answer-btn').forEach(button => {
             const isCorrect = button.textContent === currentQuestion.correct_answer;
             const isSelected = button.textContent === selectedAnswer;
 
             if (isCorrect) {
-                button.style.backgroundColor = '#4CAF50'; // Green for correct
+                button.style.backgroundColor = '#4CAF50';
             } else if (isSelected) {
-                button.style.backgroundColor = '#ff4444'; // Red for wrong
+                button.style.backgroundColor = '#ff4444';
             }
 
-            button.disabled = true; // Disable buttons after selection
+            button.disabled = true;
         });
 
         if (result.correct) {
@@ -71,7 +85,6 @@ async function checkAnswer(selectedAnswer) {
             feedbackEl.textContent = `❌ Wrong! The correct answer was: ${currentQuestion.correct_answer}`;
         }
 
-        // Update score display and leaderboard logic
         document.getElementById('score').textContent = `Score: ${score}`;
         setTimeout(loadQuestion, 2000);
 
@@ -80,14 +93,12 @@ async function checkAnswer(selectedAnswer) {
     }
 }
 
-
 async function skipQuestion() {
-    score = Math.max(0, score - 5); // Prevent negative scores
+    score = Math.max(0, score - 5);
     document.getElementById('score').textContent = `Score: ${score}`;
     document.getElementById('feedback').textContent = "⏩ Skipped! -5 points";
     setTimeout(loadQuestion, 1000);
 }
-
 
 window.addEventListener('DOMContentLoaded', () => {
     loadQuestion();

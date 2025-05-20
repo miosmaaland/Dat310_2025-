@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Profile</title>
+    <title>Profile - CS Quiz Master</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Welcome, {{ user.username }}!</h1>
-    <p>Your Score: {{ user.score }}</p>
-    <a href="{{ url_for('play') }}">Play Trivia</a>
+    <h1>Hello, {{ user.username }}! 👋</h1>
+    <p>Your Current Score: {{ user.score }}</p>
+    <a href="{{ url_for('play') }}">Take More Quizzes</a>
     <a href="{{ url_for('logout') }}">Logout</a>
 </body>
 </html>

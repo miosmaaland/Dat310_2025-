@@ -8,7 +8,7 @@ app.secret_key = 'your_secret_key_here'  # Replace with a real secret key!
 
 
 def get_db():
-    conn = sqlite3.connect('trivia.db')
+    conn = sqlite3.connect('csquiz.db')
     conn.row_factory = sqlite3.Row  # Return rows as dictionaries
     return conn
 
@@ -84,30 +84,63 @@ def play():
     if 'user_id' not in session:
         return redirect(url_for('login'))
     
+    conn = get_db()
+    categories = conn.execute('SELECT * FROM categories').fetchall()
+    conn.close()
+    return render_template('play_menu.html', categories=categories)
+
+@app.route('/start_game', methods=['POST'])
+def start_game():
+    category_id = request.form.get('category_id')
+    level = request.form.get('level')
+
+    query_params = {}
+    if category_id:
+        query_params['category_id'] = category_id
+    if level:
+        query_params['level'] = level
+
+    return redirect(url_for('game') + '?' + '&'.join(f"{k}={v}" for k, v in query_params.items()))
+
+@app.route('/game')
+def game():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
     return render_template('play.html')
+
 
 @app.route('/get_question')
 def get_question():
+    category_id = request.args.get('category_id')
+    level = request.args.get('level')
+
     conn = get_db()
-    question = conn.execute('''
-        SELECT q.*, s.name AS series_name 
+    query = '''
+        SELECT q.*, c.name AS category_name 
         FROM questions q
-        JOIN series s ON q.series_id = s.id
-        ORDER BY RANDOM() LIMIT 1
-    ''').fetchone()
+        JOIN categories c ON q.category_id = c.id
+        WHERE 1 = 1
+    '''
+    params = []
+
+    if category_id:
+        query += ' AND q.category_id = ?'
+        params.append(category_id)
+    if level:
+        query += ' AND q.level = ?'
+        params.append(level)
+
+    query += ' ORDER BY RANDOM() LIMIT 1'
+    question = conn.execute(query, params).fetchone()
     conn.close()
-    
+
     if not question:
         return jsonify({"error": "No questions available"}), 404
-    
-    
-    print("Question:", dict(question))
-    
-    
+
     question_dict = dict(question)
     question_dict['wrong_answers'] = json.loads(question['wrong_answers'])
-    
     return jsonify(question_dict)
+
 
 @app.route('/check_answer', methods=['POST'])
 def check_answer():
