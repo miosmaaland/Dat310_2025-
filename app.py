@@ -174,5 +174,9 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
+@app.route('/hangman')
+def hangman():
+    return render_template('hangman.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

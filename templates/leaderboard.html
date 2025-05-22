@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Leaderboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="navbar">
@@ -10,6 +10,7 @@
         {% if 'user_id' in session %}
             <a href="{{ url_for('play') }}">Play</a>
             <a href="{{ url_for('profile') }}">Profile</a>
+            <a href="{{ url_for('hangman') }}">Hangman</a>
             <a href="{{ url_for('logout') }}">Logout</a>
         {% else %}
             <a href="{{ url_for('login') }}">Login</a>

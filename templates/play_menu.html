@@ -2,13 +2,14 @@
 <html>
 <head>
     <title>Select Quiz Options - CS Quiz Master</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="navbar">
         <a href="{{ url_for('index') }}">Home</a>
         <a href="{{ url_for('profile') }}">Profile</a>
         <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
+        <a href="{{ url_for('hangman') }}">Hangman</a>
         <a href="{{ url_for('logout') }}">Logout</a>
     </div>
 

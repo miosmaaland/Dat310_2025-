@@ -2,13 +2,14 @@
 <html>
 <head>
     <title>Play Quiz - CS Quiz Master</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="navbar">
         <a href="{{ url_for('index') }}">Home</a>
         <a href="{{ url_for('profile') }}">Profile</a>
         <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
+        <a href="{{ url_for('hangman') }}">Hangman</a>
         <a href="{{ url_for('logout') }}">Logout</a>
     </div>
 
@@ -32,6 +33,6 @@
         <p id="feedback" class="feedback"></p>
     </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static/scripts', filename='script.js') }}"></script>
 </body>
 </html>

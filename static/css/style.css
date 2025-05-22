@@ -42,6 +42,20 @@ body {
     background-color: #45a049;
 }
 
+.keyboard button {
+    padding: 10px;
+    min-width: 35px;
+    flex: 1 0 calc(10% - 10px);
+    max-width: 50px;
+    text-align: center;
+}
+
+.keyboard {
+    gap: 10px;
+    row-gap: 12px;
+}
+
+
 /* ===== Homepage ===== */
 .home-content {
     text-align: center;
@@ -186,7 +200,13 @@ input[type="text"], input[type="password"] {
     100% { transform: scale(1); }
 }
 
-
+@media (max-width: 500px) {
+    .keyboard button {
+        font-size: 0.85rem;
+        min-width: 30px;
+        padding: 8px;
+    }
+}
 
 .answers-container {
     display: grid;
@@ -208,4 +228,34 @@ input[type="text"], input[type="password"] {
 .answer-btn:hover {
     transform: scale(1.02);
     opacity: 0.9;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #4348a2;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: #ffcc00;
+}
+
+body {
+    padding-top: 70px; /* Makes space for the fixed navbar */
 }
